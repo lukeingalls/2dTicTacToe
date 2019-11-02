@@ -1,0 +1,229 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Bootstrap stuff -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		
+
+		<link rel="stylesheet" type="text/css" href="css/index.css">
+		<script type="text/javascript" src="js/index.js"></script>
+		<title>2d-tictactoe</title>
+	</head>
+
+	<body>
+		<div class="menu container bg-primary">
+			<div class="row" id ="header1">
+				<div class="col-2">
+					<input type="text" class="form-control" id="player1" placeholder="player one">
+				</div>
+				<div class="col-2"></div>
+				<div class="btn-group btn-group-toggle col-4" data-toggle="buttons">
+				  	<label class="btn btn-secondary active">
+				    	<input type="radio" name="options" id="option1" autocomplete="off" checked> Two Player
+				  	</label>
+					<label class="btn btn-secondary">
+						<input type="radio" name="options" id="option2" autocomplete="off"> Single Player
+					</label>
+				</div>
+				<div class="col-2"></div>
+				<div class="col-2">
+					<input type="text" class="form-control" id="player1" placeholder="player two">	
+				</div>
+			</div>
+			<div class="row" id="header2">
+				<div class="col-3" ></div>
+				<div class="col-6 text-center bg-secondary" >Turn: <strong id="player_turn">X</strong></div>
+				<div class="col-3" ></div>
+			</div>
+		</div>
+		<div id="full_board" class="container bg-primary">
+			<div class="board_row top">
+				<!-- Top corner of the big board -->
+				<span id="BUL">
+					<div class="board_row top">
+						<button onclick="move_played('BUL-BUL');" id="BUL-BUL" >empty</button><!--
+					--><button onclick="move_played('BUL-BUM');" id="BUL-BUM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BUL-BUR');" id="BUL-BUR">empty</button>
+					</div>
+					<div class="board_row middle-sm">
+						<button onclick="move_played('BUL-BML');" id="BUL-BML">empty</button><!--
+					--><button onclick="move_played('BUL-BMM');" id="BUL-BMM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BUL-BMR');" id="BUL-BMR">empty</button>
+					</div>
+					<div class="board_row bottom">
+						<button onclick="move_played('BUL-BLL');" id="BUL-BLL">empty</button><!--
+					--><button onclick="move_played('BUL-BLM');" id="BUL-BLM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BUL-BLR');" id="BUL-BLR">empty</button>
+					</div>
+				</span><!--
+
+				Middle of the big board
+				
+				--><span id="BUM" class="middle-col" >
+					<div class="board_row top">
+						<button onclick="move_played('BUM-BUL');" id="BUM-BUL">empty</button><!--
+					--><button onclick="move_played('BUM-BUM');" id="BUM-BUM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BUM-BUR');" id="BUM-BUR">empty</button>
+					</div>
+					<div class="board_row middle-sm">
+						<button onclick="move_played('BUM-BML');" id="BUM-BML">empty</button><!--
+					--><button onclick="move_played('BUM-BMM');" id="BUM-BMM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BUM-BMR');" id="BUM-BMR">empty</button>
+					</div>
+					<div class="board_row bottom">
+						<button onclick="move_played('BUM-BLL');" id="BUM-BLL">empty</button><!--
+					--><button onclick="move_played('BUM-BLM');" id="BUM-BLM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BUM-BLR');" id="BUM-BLR">empty</button>
+					</div>
+				</span><!--
+
+				Top right of the big board
+
+				--><span id="BUR">
+					<div class="board_row top">
+						<button onclick="move_played('BUR-BUL');" id="BUR-BUL">empty</button><!--
+					--><button onclick="move_played('BUR-BUM');" id="BUR-BUM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BUR-BUR');" id="BUR-BUR">empty</button>
+					</div>
+					<div class="board_row middle-sm">
+						<button onclick="move_played('BUR-BML');" id="BUR-BML">empty</button><!--
+					--><button onclick="move_played('BUR-BMM');" id="BUR-BMM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BUR-BMR');" id="BUR-BMR">empty</button>
+					</div>
+					<div class="board_row bottom">
+						<button onclick="move_played('BUR-BLL');" id="BUR-BLL">empty</button><!--
+					--><button onclick="move_played('BUR-BLM');" id="BUR-BLM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BUR-BLR');" id="BUR-BLR">empty</button>
+					</div>
+				</span>				
+			</div>
+			<!-- This is the second row of the game board -->
+			<div class="board_row middle">
+				<!-- Left middle spot on the board -->
+				<span id="BML">
+					<div class="board_row top">
+						<button onclick="move_played('BML-BUL');" id="BML-BUL">empty</button><!--
+					--><button onclick="move_played('BML-BUM');" id="BML-BUM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BML-BUR');" id="BML-BUR">empty</button>
+					</div>
+					<div class="board_row middle-sm">
+						<button onclick="move_played('BML-BML');" id="BML-BML">empty</button><!--
+					--><button onclick="move_played('BML-BMM');" id="BML-BMM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BML-BMR');" id="BML-BMR">empty</button>
+					</div>
+					<div class="board_row bottom">
+						<button onclick="move_played('BML-BLL');" id="BML-BLL">empty</button><!--
+					--><button onclick="move_played('BML-BLM');" id="BML-BLM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BML-BLR');" id="BML-BLR">empty</button>
+					</div>
+				</span><!--
+
+				Absolute middle of the big board
+
+				--><span id="BMM" class="middle-col" >
+					<div class="board_row top">
+						<button onclick="move_played('BMM-BUL');" id="BMM-BUL">empty</button><!--
+					--><button onclick="move_played('BMM-BUM');" id="BMM-BUM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BMM-BUR');" id="BMM-BUR">empty</button>
+					</div>
+					<div class="board_row middle-sm">
+						<button onclick="move_played('BMM-BML');" id="BMM-BML">empty</button><!--
+					--><button onclick="move_played('BMM-BMM');" id="BMM-BMM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BMM-BMR');" id="BMM-BMR">empty</button>
+					</div>
+					<div class="board_row bottom">
+						<button onclick="move_played('BMM-BLL');" id="BMM-BLL">empty</button><!--
+					--><button onclick="move_played('BMM-BLM');" id="BMM-BLM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BMM-BLR');" id="BMM-BLR">empty</button>
+					</div>
+				</span><!--
+
+				Right spot of the middle of the board
+
+				--><span id="BMR">
+					<div class="board_row top">
+						<button onclick="move_played('BMR-BUL');" id="BMR-BUL">empty</button><!--
+					--><button onclick="move_played('BMR-BUM');" id="BMR-BUM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BMR-BUR');" id="BMR-BUR">empty</button>
+					</div>
+					<div class="board_row middle-sm">
+						<button onclick="move_played('BMR-BML');" id="BMR-BML">empty</button><!--
+					--><button onclick="move_played('BMR-BMM');" id="BMR-BMM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BMR-BMR');" id="BMR-BMR">empty</button>
+					</div>
+					<div class="board_row bottom">
+						<button onclick="move_played('BMR-BLL');" id="BMR-BLL">empty</button><!--
+					--><button onclick="move_played('BMR-BLM');" id="BMR-BLM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BMR-BLR');" id="BMR-BLR">empty</button>
+					</div>
+				</span>				
+			</div>
+			<!-- This is the third row of the game board -->
+			<div class="board_row bottom">
+				<!-- Bottom left corner of the game board -->
+				<span id="BLL">
+					<div class="board_row top">
+						<button onclick="move_played('BLL-BUL');" id="BLL-BUL">empty</button><!--
+					--><button onclick="move_played('BLL-BUM');" id="BLL-BUM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BLL-BUR');" id="BLL-BUR">empty</button>
+					</div>
+					<div class="board_row middle-sm">
+						<button onclick="move_played('BLL-BML');" id="BLL-BML">empty</button><!--
+					--><button onclick="move_played('BLL-BMM');" id="BLL-BMM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BLL-BMR');" id="BLL-BMR">empty</button>
+					</div>
+					<div class="board_row bottom-sm">
+						<button onclick="move_played('BLL-BLL');" id="BLL-BLL">empty</button><!--
+					--><button onclick="move_played('BLL-BLM');" id="BLL-BLM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BLL-BLR');" id="BLL-BLR">empty</button>
+					</div>
+				</span><!--
+
+				This is the middle of the bottom row of the game board
+
+				--><span id="BLM" class="middle-col" >
+					<div class="board_row top">
+						<button onclick="move_played('BLM-BUL');" id="BLM-BUL">empty</button><!--
+					--><button onclick="move_played('BLM-BUM');" id="BLM-BUM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BLM-BUR');" id="BLM-BUR">empty</button>
+					</div>
+					<div class="board_row middle-sm">
+						<button onclick="move_played('BLM-BML');" id="BLM-BML">empty</button><!--
+					--><button onclick="move_played('BLM-BMM');" id="BLM-BMM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BLM-BMR');" id="BLM-BMR">empty</button>
+					</div>
+					<div class="board_row bottom">
+						<button onclick="move_played('BLM-BLL');" id="BLM-BLL">empty</button><!--
+					--><button onclick="move_played('BLM-BLM');" id="BLM-BLM"class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BLM-BLR');" id="BLM-BLR">empty</button>
+					</div>
+				</span><!--
+
+				Bottom right of the large game board
+
+				--><span id="BLR">
+					<div class="board_row top">
+						<button onclick="move_played('BLR-BUL');" id="BLR-BUL">empty</button><!--
+					--><button onclick="move_played('BLR-BUM');" id="BLR-BUM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BLR-BUR');" id="BLR-BUR">empty</button>
+					</div>
+					<div class="board_row middle-sm">
+						<button onclick="move_played('BLR-BML');" id="BLR-BML">empty</button><!--
+					--><button onclick="move_played('BLR-BMM');" id="BLR-BMM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BLR-BMR');" id="BLR-BMR">empty</button>
+					</div>
+					<div class="board_row bottom-sm">
+						<button onclick="move_played('BLR-BLL');" id="BLR-BLL">empty</button><!--
+					--><button onclick="move_played('BLR-BLM');" id="BLR-BLM" class="middle-col-sm">empty</button><!--
+					--><button onclick="move_played('BLR-BLR');" id="BLR-BLR">empty</button>
+					</div>
+				</span>				
+			</div>
+		</div>
+	</body>
+</html>
