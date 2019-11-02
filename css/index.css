@@ -104,3 +104,7 @@ button:disabled {
 	text-align: center;
 	font-size: 24.8vh;
 }
+
+#player2:disabled {
+	display:none;
+}

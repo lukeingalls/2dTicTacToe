@@ -30,6 +30,10 @@ class Stack {
 	} 
 } 
 
+//Ids of gameboards
+var ids = ['BUL', 'BUM', 'BUR', 'BML', 'BMM', 'BMR', 'BLL', 'BLM', 'BLR'];
+
+//Game move stack
 var game_moves = new Stack();
 
 //Tracks who is supposed to go
@@ -214,6 +218,7 @@ function unlock_all() {
 }
 
 function move_played(id) {
+	console.log(board)
 	//Change the header once the game has been won.
 	if (start == false) {
 		start_manipulations = document.getElementById("header1");
@@ -475,4 +480,47 @@ function undo() {
 			stated_player.innerHTML = 'O';
 		}
 	}
+}
+
+function reset() {
+	//Reset all buttons
+	b = document.getElementsByTagName('button');
+	for (var i = b.length - 1; i >= 0; i--) {
+		b[i].disabled = false;
+		b[i].innerText = 'empty';
+		b[i].style.color = 'transparent';
+	}
+
+	//Reset moves
+	for (var i = ids.length - 1; i >= 0; i--) {
+		small_board = document.getElementById(ids[i]);
+		small_board.style.display = "inline-block";
+
+		//Replace small board with the larger character of the winner.
+		small_board = document.getElementById(ids[i]+'-Won');
+		if (ids[i].charAt(1) == 'M') {
+			small_board.classList.add("Wonton-Middle");
+		} else {
+			small_board.classList.add("Wonton");
+		}
+	}
+	for (var i = board.length - 1; i >= 0; i--) {
+		board[i].UR = 'E';
+		board[i].UM = 'E';
+		board[i].UL = 'E';
+		board[i].ML = 'E';
+		board[i].MM = 'E';
+		board[i].MR = 'E';
+		board[i].BL = 'E';
+		board[i].BM = 'E';
+		board[i].BR = 'E';
+	}
+	//Empty the moves stack
+	while (!game_moves.isEmpty()) {
+		game_moves.pop();
+	}
+
+	turn = 0;
+	var stated_player = document.getElementById("player_turn");
+	stated_player.innerHTML = 'X';
 }

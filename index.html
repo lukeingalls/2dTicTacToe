@@ -20,24 +20,24 @@
 		<div class="menu container bg-primary">
 			<div class="row" id ="header1">
 				<div class="col-2">
-					<input type="text" class="form-control" id="player1" placeholder="player one">
+					<input type="text" class="form-control" id="player1" placeholder="player one (X)">
 				</div>
 				<div class="col-2"></div>
 				<div class="btn-group btn-group-toggle col-4" data-toggle="buttons">
-				  	<label class="btn btn-secondary active">
-				    	<input type="radio" name="options" id="option1" autocomplete="off" checked> Two Player
+				  	<label class="btn btn-secondary active" onclick="document.getElementById('player2').disabled = true;">
+				    	<input type="radio" name="options" id="option1" autocomplete="off" checked> Single Player
 				  	</label>
-					<label class="btn btn-secondary">
-						<input type="radio" name="options" id="option2" autocomplete="off"> Single Player
+					<label class="btn btn-secondary" onclick="document.getElementById('player2').disabled = false;">
+						<input type="radio" name="options" id="option2" autocomplete="off"> Two Player
 					</label>
 				</div>
 				<div class="col-2"></div>
 				<div class="col-2">
-					<input type="text" class="form-control" id="player1" placeholder="player two">	
+					<input type="text" class="form-control" id="player2" disabled="true" placeholder="player two (O)">	
 				</div>
 			</div>
 			<div class="row" id="header2">
-				<div class="col-2"><p style="width:100%;" class="btn btn-danger">Reset</p></div>
+				<div class="col-2"><p style="width:100%;" onclick="reset();" class="btn btn-danger">Reset</p></div>
 				<div class="col-1" ></div>
 				<div class="col-6 text-center" style="background-color: lightgrey;" >Turn: <strong id="player_turn">X</strong></div>
 				<div class="col-1" ></div>
