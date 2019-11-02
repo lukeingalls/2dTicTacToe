@@ -87,4 +87,20 @@ button:disabled {
 #header2 {
 	height: 100%;
 	display: none;
+	font-size:2.5vh;
+	color:black;
+}
+
+.Wonton, .Wonton-Middle {
+	display: none !important;
+}
+
+.Won {
+	text-align: center;
+	font-size: 25.8vh;
+}
+
+.Won-Middle {
+	text-align: center;
+	font-size: 24.8vh;
 }

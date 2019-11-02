@@ -12,10 +12,11 @@
 
 		<link rel="stylesheet" type="text/css" href="css/index.css">
 		<script type="text/javascript" src="js/index.js"></script>
-		<title>2d-tictactoe</title>
+		<title>2d Tic Tac Toe</title>
 	</head>
 
 	<body>
+		<!-- Top Menu -->
 		<div class="menu container bg-primary">
 			<div class="row" id ="header1">
 				<div class="col-2">
@@ -36,15 +37,19 @@
 				</div>
 			</div>
 			<div class="row" id="header2">
-				<div class="col-3" ></div>
-				<div class="col-6 text-center bg-secondary" >Turn: <strong id="player_turn">X</strong></div>
-				<div class="col-3" ></div>
+				<div class="col-2"><p style="width:100%;" class="btn btn-danger">Reset</p></div>
+				<div class="col-1" ></div>
+				<div class="col-6 text-center" style="background-color: lightgrey;" >Turn: <strong id="player_turn">X</strong></div>
+				<div class="col-1" ></div>
+				<div class="col-2"><p style="width:100%;" class="btn btn-danger" onclick="undo();">Undo</p></div>
 			</div>
 		</div>
 		<div id="full_board" class="container bg-primary">
 			<div class="board_row top">
 				<!-- Top corner of the big board -->
-				<span id="BUL">
+				<span id="BUL-Won" class="Won Wonton">
+					
+				</span><span id="BUL">
 					<div class="board_row top">
 						<button onclick="move_played('BUL-BUL');" id="BUL-BUL" >empty</button><!--
 					--><button onclick="move_played('BUL-BUM');" id="BUL-BUM" class="middle-col-sm">empty</button><!--
@@ -64,7 +69,9 @@
 
 				Middle of the big board
 				
-				--><span id="BUM" class="middle-col" >
+				--><span id="BUM-Won" class="Won Wonton middle-col">
+					
+				</span><span id="BUM" class="middle-col" >
 					<div class="board_row top">
 						<button onclick="move_played('BUM-BUL');" id="BUM-BUL">empty</button><!--
 					--><button onclick="move_played('BUM-BUM');" id="BUM-BUM" class="middle-col-sm">empty</button><!--
@@ -84,7 +91,9 @@
 
 				Top right of the big board
 
-				--><span id="BUR">
+				--><span id="BUR-Won" class="Won Wonton">
+					
+				</span><span id="BUR">
 					<div class="board_row top">
 						<button onclick="move_played('BUR-BUL');" id="BUR-BUL">empty</button><!--
 					--><button onclick="move_played('BUR-BUM');" id="BUR-BUM" class="middle-col-sm">empty</button><!--
@@ -105,7 +114,9 @@
 			<!-- This is the second row of the game board -->
 			<div class="board_row middle">
 				<!-- Left middle spot on the board -->
-				<span id="BML">
+				<span id="BML-Won" class="Won-Middle Wonton-Middle">
+					
+				</span><span id="BML">
 					<div class="board_row top">
 						<button onclick="move_played('BML-BUL');" id="BML-BUL">empty</button><!--
 					--><button onclick="move_played('BML-BUM');" id="BML-BUM" class="middle-col-sm">empty</button><!--
@@ -125,7 +136,9 @@
 
 				Absolute middle of the big board
 
-				--><span id="BMM" class="middle-col" >
+				--><span id="BMM-Won" class="Won-Middle Wonton-Middle middle-col">
+					
+				</span><span id="BMM" class="middle-col" >
 					<div class="board_row top">
 						<button onclick="move_played('BMM-BUL');" id="BMM-BUL">empty</button><!--
 					--><button onclick="move_played('BMM-BUM');" id="BMM-BUM" class="middle-col-sm">empty</button><!--
@@ -145,7 +158,9 @@
 
 				Right spot of the middle of the board
 
-				--><span id="BMR">
+				--><span id="BMR-Won" class="Won-Middle Wonton-Middle">
+					
+				</span><span id="BMR">
 					<div class="board_row top">
 						<button onclick="move_played('BMR-BUL');" id="BMR-BUL">empty</button><!--
 					--><button onclick="move_played('BMR-BUM');" id="BMR-BUM" class="middle-col-sm">empty</button><!--
@@ -166,7 +181,9 @@
 			<!-- This is the third row of the game board -->
 			<div class="board_row bottom">
 				<!-- Bottom left corner of the game board -->
-				<span id="BLL">
+				<span id="BLL-Won" class="Won Wonton">
+					
+				</span><span id="BLL">
 					<div class="board_row top">
 						<button onclick="move_played('BLL-BUL');" id="BLL-BUL">empty</button><!--
 					--><button onclick="move_played('BLL-BUM');" id="BLL-BUM" class="middle-col-sm">empty</button><!--
@@ -186,7 +203,9 @@
 
 				This is the middle of the bottom row of the game board
 
-				--><span id="BLM" class="middle-col" >
+				--><span id="BLM-Won" class="Won Wonton middle-col">
+					
+				</span><span id="BLM" class="middle-col" >
 					<div class="board_row top">
 						<button onclick="move_played('BLM-BUL');" id="BLM-BUL">empty</button><!--
 					--><button onclick="move_played('BLM-BUM');" id="BLM-BUM" class="middle-col-sm">empty</button><!--
@@ -206,7 +225,9 @@
 
 				Bottom right of the large game board
 
-				--><span id="BLR">
+				--><span id="BLR-Won" class="Won Wonton">
+					
+				</span><span id="BLR">
 					<div class="board_row top">
 						<button onclick="move_played('BLR-BUL');" id="BLR-BUL">empty</button><!--
 					--><button onclick="move_played('BLR-BUM');" id="BLR-BUM" class="middle-col-sm">empty</button><!--

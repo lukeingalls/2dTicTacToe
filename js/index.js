@@ -1,25 +1,65 @@
+//Normal Stack implementation (to be used with undo)
+class Stack { 
+  
+    // Array is used to implement stack 
+    constructor() { 
+        this.items = []; 
+    } 
+  
+    // Functions to be implemented 
+    push(element) { 
+	    // push element into the items 
+	    this.items.push(element); 
+	} 
+    pop() { 
+	    // return top most element in the stack 
+	    // and removes it from the stack 
+	    // Underflow if stack is empty 
+	    if (this.items.length == 0) 
+	        return "Underflow"; 
+	    return this.items.pop(); 
+	} 
+    peek() { 
+	    // return the top most element from the stack 
+	    // but does'nt delete it. 
+	    return this.items[this.items.length - 1]; 
+	} 
+    isEmpty() { 
+	    // return true if stack is empty 
+	    return this.items.length == 0; 
+	} 
+} 
+
+var game_moves = new Stack();
+
+//Tracks who is supposed to go
 var turn = 0;
 
-var ids = ['BUL', 'BUM', 'BUR', 'BML', 'BMM', 'BMR', 'BLL', 'BLM', 'BLR'];
-
+//Indicates the game has started.
 var start = false;
+
 //Define how a gameboard should interact.
 class gameboard {
   	constructor() {
+  		//Upper board elements.
 		this.UR = 'E';
 		this.UM = 'E';
 		this.UL = 'E';
+		//Middle board elements.
 		this.ML = 'E';
 		this.MM = 'E';
 		this.MR = 'E';
+		//Bottom board elements.
 		this.BL = 'E';
 		this.BM = 'E';
 		this.BR = 'E';
+
+		//Player who has won the board.
 		this.winner = 'E';
 	}
 
 	check_winner() {
-		if (this.winner != 'E') return this.winner;
+		//Winner has already been determined previously.
 		
 		// Horizontal win conditions
 		if (this.UR == this.UM && this.UM == this.UL && this.UR != 'E') {
@@ -59,6 +99,8 @@ class gameboard {
 			return this.winner;
 		}
 
+		//Set this.winner to E. Redundant except for the undo function.
+		this.winner = 'E';
 		return this.winner;
 	}
 };
@@ -70,17 +112,19 @@ for (var g = 0; g < 9; g++) {
 }
 var big_board = new gameboard();
 
-
+//This function handles when a player wins a smaller board.
 function small_win(board_id, player) {
+	//Get rid of the small board.
 	small_board = document.getElementById(board_id);
-	small_board.innerHTML = player;
-	if (board_id.charAt(1) == 'M') {
-		small_board.style.fontSize = '25.8vh';
-	} else {
-		small_board.style.fontSize = '26.8vh';
-	}
-	small_board.style.textAlign = 'center';
+	small_board.style.display = "none";
 
+	//Replace small board with the larger character of the winner.
+	small_board = document.getElementById(board_id+'-Won');
+	small_board.classList.remove("Wonton");
+	small_board.classList.remove("Wonton-Middle");
+	small_board.innerHTML = player;
+
+	//Mark the winner in the larger gameboard.
 	switch(board_id) {
 		case 'BUL':
 			big_board.UL = player;
@@ -101,31 +145,44 @@ function small_win(board_id, player) {
 			big_board.MR = player;
 			break;
 		case 'BLL':
-			big_board.LL = player;
+			big_board.BL = player;
 			break;
 		case 'BLM':
-			big_board.LM = player;
+			big_board.BM = player;
 			break;
 		case 'BLR':
-			big_board.LR = player;
+			big_board.BR = player;
 			break;
-		default:
-			alert('Stop fucking with the js');
-			invalid = true;
-			return;
 	}
+
+	//Shows that a player has won the game.
 	if (big_board.check_winner() != 'E') {
 		alert('Player ' + player + ' has won!')
+		//Lock all tiles.
+		lock_everything = document.getElementsByTagName('button');
+		for (var i = lock_everything.length - 1; i >= 0; i--) {
+			if (!lock_everything[i].disabled) {
+				lock_everything[i].disabled == true;
+			}
+		}
 	}
 }
 
+//Controls locking and unlocking of tiles.
 function lock_unlock(source) {
+	//Get all buttons.
 	b = document.getElementsByTagName('button');
+	//Get buttons from the source.
 	buttons = document.getElementById(source).getElementsByTagName('button');
-	if (buttons.length != 0) {
+	//Identify whether a tile has been won already
+	check_buttons = document.getElementById(source+'-Won').classList;
+	if (check_buttons.contains('Wonton') || check_buttons.contains('Wonton-Middle')) {
+		//This branch runs when the destination tile hasn't been won.
+		//Disable all tiles.
 		for (var i = 0; i < b.length; i++) {
 				b[i].disabled = true;
 		}
+		//Enable empty tiles.
 		for (var i = buttons.length - 1; i >= 0; i--) {
 			if (buttons[i].innerText == 'empty') {
 				buttons[i].disabled = false;
@@ -134,7 +191,9 @@ function lock_unlock(source) {
 			}
 		}
 	} else {
+		//Branch runs when destination tile has been won.
 		for (var i = 0; i < b.length; i++) {
+			//Enable all empty buttons.
 			if (b[i].innerText == 'empty') {
 				b[i].disabled = false;
 			} else {
@@ -144,9 +203,18 @@ function lock_unlock(source) {
 	}
 }
 
-
+//Does what the name implies
+function unlock_all() {
+	//Get all buttons.
+	b = document.getElementsByTagName('button');
+	for (var i = 0; i < b.length; i++) {
+		//Enable all buttons.
+		b[i].disabled = false;
+	}
+}
 
 function move_played(id) {
+	//Change the header once the game has been won.
 	if (start == false) {
 		start_manipulations = document.getElementById("header1");
 		start_manip = document.getElementById("header2");
@@ -155,12 +223,23 @@ function move_played(id) {
 		start = true;
 	}
 
+	//Get the board we are looking at.
 	var tile = document.getElementById(id);
+	
+	//Get origin and destination from the id.
 	var orig = id.substring(0,3);
 	var dest = id.substring(4,7);
+	
+	//The X or the O
 	var player;
+
+	//Used to check win states.
 	var item;
+
+	//Validity of the move.
 	var invalid = false;
+
+	//This will identify the player making the move and update whose move it is.
 	var stated_player = document.getElementById("player_turn");
 	if (turn) {
 		player = 'O'
@@ -169,6 +248,8 @@ function move_played(id) {
 		player = 'X'
 		stated_player.innerHTML = 'O';
 	}
+
+	//Identify which little board we are at.
 	var board_index = 0;
 	switch(orig) {
 		case 'BUL':
@@ -203,7 +284,11 @@ function move_played(id) {
 			invalid = true;
 			return;
 	}
+
+	//Make sure the board can be interacted with.
 	if (board[board_index].winner != 'E') return;
+
+	//Identify the small tile we are in and mark it.
 	switch(dest) {
 		case 'BUL':
 			if (board[board_index].UL == 'E') {
@@ -254,19 +339,140 @@ function move_played(id) {
 			alert('Stop fucking with the js');
 			return;
 	}
+	//Add the player info to the button and showing it.
 	tile.innerText = player;
 	tile.style.color = 'crimson';
+
+	//Check a win
 	item = board[board_index].check_winner();
+	
+	//Do win condition stuff
 	if (item != 'E') {
 		small_win(orig, player);
 	}
-	lock_unlock(dest);
 
+	//Toggle tiles when there isn't a winner.
+	if (big_board.check_winner() == 'E') {
+		lock_unlock(dest);
+	}
+
+	//Change turns if a valid move has been played.
 	if (!invalid) {
+		// Add the move to the stack
+		game_moves.push(id)
 		if (turn) {
 			turn = 0;
 		} else {
 			turn = 1;
+		}
+	}
+}
+
+function undo() {
+	if (!game_moves.isEmpty()) {
+		//Remove the element to undo from the stack.
+		move_to_undo = game_moves.peek();
+		game_moves.pop();
+
+		//Define the origin and destination
+		var orig = move_to_undo.substring(0,3);
+		var dest = move_to_undo.substring(4,7);
+
+		//Identify which little board we are at.
+		var board_index = 0;
+		switch(orig) {
+			case 'BUL':
+				board_index = 0;
+				break;
+			case 'BUM':
+				board_index = 1;
+				break;
+			case 'BUR':
+				board_index = 2;
+				break;
+			case 'BML':
+				board_index = 3;
+				break;
+			case 'BMM':
+				board_index = 4;
+				break;
+			case 'BMR':
+				board_index = 5;
+				break;
+			case 'BLL':
+				board_index = 6;
+				break;
+			case 'BLM':
+				board_index = 7;
+				break;
+			case 'BLR':
+				board_index = 8;
+				break;
+		}
+		var win_state_previous = board[board_index].check_winner();
+		//Identify the small tile we are in and mark it.
+		switch(dest) {
+			case 'BUL':
+					board[board_index].UL = 'E';
+				break;
+			case 'BUM':
+					board[board_index].UM = 'E';
+				break;
+			case 'BUR':
+					board[board_index].UR = 'E';
+				break;
+			case 'BML':
+					board[board_index].ML = 'E';
+				break;
+			case 'BMM':
+					board[board_index].MM = 'E';
+				break;
+			case 'BMR':
+					board[board_index].MR = 'E';
+				break;
+			case 'BLL':
+					board[board_index].BL = 'E';
+				break;
+			case 'BLM':
+					board[board_index].BM = 'E';
+				break;
+			case 'BLR':
+					board[board_index].BR = 'E';
+				break;
+		}
+		//Reset text in button
+		var tile = document.getElementById(move_to_undo);
+		tile.innerText = 'empty';
+		tile.style.color = 'transparent';
+		// Take away a board win.
+		if (win_state_previous != board[board_index].check_winner()) {
+			small_board = document.getElementById(orig);
+			small_board.style.display = "inline-block";
+
+			//Replace small board with the larger character of the winner.
+			small_board = document.getElementById(orig+'-Won');
+			if (orig.charAt(1) == 'M') {
+				small_board.classList.add("Wonton-Middle");
+			} else {
+				small_board.classList.add("Wonton");
+			}
+		}
+
+		//Unlock tiles.
+		if (game_moves.isEmpty()) {
+			unlock_all();		
+		} else {
+			lock_unlock(orig);
+		}
+
+		var stated_player = document.getElementById("player_turn");
+		//Change the turn
+		if (turn) {
+			turn = 0;
+			stated_player.innerHTML = 'X';
+		} else {
+			turn = 1;
+			stated_player.innerHTML = 'O';
 		}
 	}
 }
