@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-
+		<link rel="shortcut icon" href="favicon.ico" />
 		<!-- Bootstrap stuff -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -24,32 +24,40 @@
 				</div>
 				<div class="col-2"></div>
 				<div class="btn-group btn-group-toggle col-4" data-toggle="buttons">
-				  	<label class="btn btn-secondary active" onclick="document.getElementById('player2').disabled = true;">
+				  	<label class="btn btn-secondary active" onclick="document.getElementById('player2').disabled = true; document.getElementById('player3').style.display = 'inline-flex'; set_single(true);">
 				    	<input type="radio" name="options" id="option1" autocomplete="off" checked> Single Player
 				  	</label>
-					<label class="btn btn-secondary" onclick="document.getElementById('player2').disabled = false;">
+					<label class="btn btn-secondary" onclick="document.getElementById('player2').disabled = false; document.getElementById('player3').style.display = 'none'; set_single(false);">
 						<input type="radio" name="options" id="option2" autocomplete="off"> Two Player
 					</label>
 				</div>
 				<div class="col-2"></div>
 				<div class="col-2">
 					<input type="text" class="form-control" id="player2" disabled="true" placeholder="player two (O)">	
+					<div class="btn-group btn-group-toggle" data-toggle="buttons" id="player3">
+						<label class="btn btn-secondary active">
+				    		<input type="radio" name="difficulty" id="option1" autocomplete="off" checked> Easy
+				  		</label>
+					<label class="btn btn-secondary">
+						<input type="radio" name="difficulty" id="option2" autocomplete="off"> Hard
+					</label>
+					</div>
 				</div>
 			</div>
 			<div class="row" id="header2">
-				<div class="col-2"><p style="width:100%;" onclick="reset();" class="btn btn-danger">Reset</p></div>
+				<div class="col-2"><p onclick="reset();" class="btn btn-danger pbtn">Reset</p></div>
 				<div class="col-1" ></div>
 				<div class="col-6 text-center" style="background-color: lightgrey;" >Turn: <strong id="player_turn">X</strong></div>
 				<div class="col-1" ></div>
-				<div class="col-2"><p style="width:100%;" class="btn btn-danger" onclick="undo();">Undo</p></div>
+				<div class="col-2"><p class="btn btn-danger pbtn" onclick="undo();">Undo</p></div>
 			</div>
 		</div>
 		<div id="full_board" class="container bg-primary">
 			<div class="board_row top">
 				<!-- Top corner of the big board -->
-				<span id="BUL-Won" class="Won Wonton">
-					
-				</span><span id="BUL">
+				<span id="BUL-Won" class="Won Wonton"><!--
+				-->E<!--
+				--></span><span id="BUL">
 					<div class="board_row top">
 						<button onclick="move_played('BUL-BUL');" id="BUL-BUL" >empty</button><!--
 					--><button onclick="move_played('BUL-BUM');" id="BUL-BUM" class="middle-col-sm">empty</button><!--
@@ -69,9 +77,9 @@
 
 				Middle of the big board
 				
-				--><span id="BUM-Won" class="Won Wonton middle-col">
-					
-				</span><span id="BUM" class="middle-col" >
+				--><span id="BUM-Won" class="Won Wonton middle-col"><!--
+				-->E<!--
+				--></span><span id="BUM" class="middle-col" >
 					<div class="board_row top">
 						<button onclick="move_played('BUM-BUL');" id="BUM-BUL">empty</button><!--
 					--><button onclick="move_played('BUM-BUM');" id="BUM-BUM" class="middle-col-sm">empty</button><!--
@@ -91,9 +99,9 @@
 
 				Top right of the big board
 
-				--><span id="BUR-Won" class="Won Wonton">
-					
-				</span><span id="BUR">
+				--><span id="BUR-Won" class="Won Wonton"><!--
+				-->E<!--
+				--></span><span id="BUR">
 					<div class="board_row top">
 						<button onclick="move_played('BUR-BUL');" id="BUR-BUL">empty</button><!--
 					--><button onclick="move_played('BUR-BUM');" id="BUR-BUM" class="middle-col-sm">empty</button><!--
@@ -114,9 +122,9 @@
 			<!-- This is the second row of the game board -->
 			<div class="board_row middle">
 				<!-- Left middle spot on the board -->
-				<span id="BML-Won" class="Won-Middle Wonton-Middle">
-					
-				</span><span id="BML">
+				<span id="BML-Won" class="Won-Middle Wonton-Middle"><!--
+				-->E<!--
+				--></span><span id="BML">
 					<div class="board_row top">
 						<button onclick="move_played('BML-BUL');" id="BML-BUL">empty</button><!--
 					--><button onclick="move_played('BML-BUM');" id="BML-BUM" class="middle-col-sm">empty</button><!--
@@ -136,9 +144,9 @@
 
 				Absolute middle of the big board
 
-				--><span id="BMM-Won" class="Won-Middle Wonton-Middle middle-col">
-					
-				</span><span id="BMM" class="middle-col" >
+				--><span id="BMM-Won" class="Won-Middle Wonton-Middle middle-col"><!--
+				-->E<!--
+				--></span><span id="BMM" class="middle-col" >
 					<div class="board_row top">
 						<button onclick="move_played('BMM-BUL');" id="BMM-BUL">empty</button><!--
 					--><button onclick="move_played('BMM-BUM');" id="BMM-BUM" class="middle-col-sm">empty</button><!--
@@ -158,9 +166,9 @@
 
 				Right spot of the middle of the board
 
-				--><span id="BMR-Won" class="Won-Middle Wonton-Middle">
-					
-				</span><span id="BMR">
+				--><span id="BMR-Won" class="Won-Middle Wonton-Middle"><!--
+				-->E<!--
+				--></span><span id="BMR">
 					<div class="board_row top">
 						<button onclick="move_played('BMR-BUL');" id="BMR-BUL">empty</button><!--
 					--><button onclick="move_played('BMR-BUM');" id="BMR-BUM" class="middle-col-sm">empty</button><!--
@@ -181,9 +189,9 @@
 			<!-- This is the third row of the game board -->
 			<div class="board_row bottom">
 				<!-- Bottom left corner of the game board -->
-				<span id="BLL-Won" class="Won Wonton">
-					
-				</span><span id="BLL">
+				<span id="BLL-Won" class="Won Wonton"><!--
+				-->E<!--
+				--></span><span id="BLL">
 					<div class="board_row top">
 						<button onclick="move_played('BLL-BUL');" id="BLL-BUL">empty</button><!--
 					--><button onclick="move_played('BLL-BUM');" id="BLL-BUM" class="middle-col-sm">empty</button><!--
@@ -203,9 +211,9 @@
 
 				This is the middle of the bottom row of the game board
 
-				--><span id="BLM-Won" class="Won Wonton middle-col">
-					
-				</span><span id="BLM" class="middle-col" >
+				--><span id="BLM-Won" class="Won Wonton middle-col"><!--
+				-->E<!--
+				--></span><span id="BLM" class="middle-col" >
 					<div class="board_row top">
 						<button onclick="move_played('BLM-BUL');" id="BLM-BUL">empty</button><!--
 					--><button onclick="move_played('BLM-BUM');" id="BLM-BUM" class="middle-col-sm">empty</button><!--
@@ -225,9 +233,9 @@
 
 				Bottom right of the large game board
 
-				--><span id="BLR-Won" class="Won Wonton">
-					
-				</span><span id="BLR">
+				--><span id="BLR-Won" class="Won Wonton"><!--
+				-->E<!--
+				--></span><span id="BLR">
 					<div class="board_row top">
 						<button onclick="move_played('BLR-BUL');" id="BLR-BUL">empty</button><!--
 					--><button onclick="move_played('BLR-BUM');" id="BLR-BUM" class="middle-col-sm">empty</button><!--

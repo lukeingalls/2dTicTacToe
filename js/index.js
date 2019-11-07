@@ -42,69 +42,72 @@ var turn = 0;
 //Indicates the game has started.
 var start = false;
 
+//Tracks single v multi player
+var single_player = true;
+
 //Define how a gameboard should interact.
 class gameboard {
   	constructor() {
   		//Upper board elements.
-		this.UR = 'E';
-		this.UM = 'E';
-		this.UL = 'E';
+		this.UR = "E";
+		this.UM = "E";
+		this.UL = "E";
 		//Middle board elements.
-		this.ML = 'E';
-		this.MM = 'E';
-		this.MR = 'E';
+		this.ML = "E";
+		this.MM = "E";
+		this.MR = "E";
 		//Bottom board elements.
-		this.BL = 'E';
-		this.BM = 'E';
-		this.BR = 'E';
+		this.BL = "E";
+		this.BM = "E";
+		this.BR = "E";
 
 		//Player who has won the board.
-		this.winner = 'E';
+		this.winner = "E";
 	}
 
 	check_winner() {
 		//Winner has already been determined previously.
 		
 		// Horizontal win conditions
-		if (this.UR == this.UM && this.UM == this.UL && this.UR != 'E') {
+		if (this.UR == this.UM && this.UM == this.UL && this.UR != "E") {
 			this.winner = this.UR;
 			return this.winner;
 		}
-		if (this.MR == this.MM && this.MM == this.ML && this.MR != 'E') {
+		if (this.MR == this.MM && this.MM == this.ML && this.MR != "E") {
 			this.winner = this.MR;
 			return this.winner;
 		}
-		if (this.BR == this.BM && this.BM == this.BL && this.BR != 'E') {
+		if (this.BR == this.BM && this.BM == this.BL && this.BR != "E") {
 			this.winner = this.BR;
 			return this.winner;
 		}
 
 		//Vertical win conditions
-		if (this.UR == this.MR && this.MR == this.BR && this.UR != 'E') {
+		if (this.UR == this.MR && this.MR == this.BR && this.UR != "E") {
 			this.winner = this.UR;
 			return this.winner;
 		}
-		if (this.UM == this.MM && this.MM == this.BM && this.UM != 'E') {
+		if (this.UM == this.MM && this.MM == this.BM && this.UM != "E") {
 			this.winner = this.UM;
 			return this.winner;
 		}
-		if (this.UL == this.ML && this.ML == this.BL && this.BL != 'E') {
+		if (this.UL == this.ML && this.ML == this.BL && this.BL != "E") {
 			this.winner = this.BL;
 			return this.winner;
 		}
 
 		//Diagnol win conditions
-		if (this.UR == this.MM && this.MM == this.BL && this.UR != 'E') {
+		if (this.UR == this.MM && this.MM == this.BL && this.UR != "E") {
 			this.winner = this.UR;
 			return this.winner;
 		}
-		if (this.UL == this.MM && this.MM == this.BR && this.UL != 'E') {
+		if (this.UL == this.MM && this.MM == this.BR && this.UL != "E") {
 			this.winner = this.UL;
 			return this.winner;
 		}
 
 		//Set this.winner to E. Redundant except for the undo function.
-		this.winner = 'E';
+		this.winner = "E";
 		return this.winner;
 	}
 };
@@ -160,15 +163,16 @@ function small_win(board_id, player) {
 	}
 
 	//Shows that a player has won the game.
-	if (big_board.check_winner() != 'E') {
-		alert('Player ' + player + ' has won!')
+	if (big_board.check_winner() != "E") {
 		//Lock all tiles.
 		lock_everything = document.getElementsByTagName('button');
 		for (var i = lock_everything.length - 1; i >= 0; i--) {
 			if (!lock_everything[i].disabled) {
-				lock_everything[i].disabled == true;
+				lock_everything[i].disabled = true;
 			}
 		}
+		alert('Player ' + player + ' has won!')
+
 	}
 }
 
@@ -218,7 +222,6 @@ function unlock_all() {
 }
 
 function move_played(id) {
-	console.log(board)
 	//Change the header once the game has been won.
 	if (start == false) {
 		start_manipulations = document.getElementById("header1");
@@ -291,52 +294,52 @@ function move_played(id) {
 	}
 
 	//Make sure the board can be interacted with.
-	if (board[board_index].winner != 'E') return;
+	if (board[board_index].winner != "E") return;
 
 	//Identify the small tile we are in and mark it.
 	switch(dest) {
 		case 'BUL':
-			if (board[board_index].UL == 'E') {
+			if (board[board_index].UL == "E") {
 				board[board_index].UL = player;
 			} else invalid = true;
 			break;
 		case 'BUM':
-			if (board[board_index].UM == 'E') {
+			if (board[board_index].UM == "E") {
 				board[board_index].UM = player;
 			} else invalid = true;
 			break;
 		case 'BUR':
-			if (board[board_index].UR == 'E') {
+			if (board[board_index].UR == "E") {
 				board[board_index].UR = player;
 			} else invalid = true;
 			break;
 		case 'BML':
-			if (board[board_index].ML == 'E') {
+			if (board[board_index].ML == "E") {
 				board[board_index].ML = player;
 			} else invalid = true;
 			break;
 		case 'BMM':
-			if (board[board_index].MM == 'E') {
+			if (board[board_index].MM == "E") {
 				board[board_index].MM = player;
 			} else invalid = true;
 			break;
 		case 'BMR':
-			if (board[board_index].MR == 'E') {
+			if (board[board_index].MR == "E") {
 				board[board_index].MR = player;
 			} else invalid = true;
 			break;
 		case 'BLL':
-			if (board[board_index].BL == 'E') {
+			if (board[board_index].BL == "E") {
 				board[board_index].BL = player;
 			} else invalid = true;
 			break;
 		case 'BLM':
-			if (board[board_index].BM == 'E') {
+			if (board[board_index].BM == "E") {
 				board[board_index].BM = player;
 			} else invalid = true;
 			break;
 		case 'BLR':
-			if (board[board_index].BR == 'E') {
+			if (board[board_index].BR == "E") {
 				board[board_index].BR = player;
 			} else invalid = true;
 			break;
@@ -352,12 +355,12 @@ function move_played(id) {
 	item = board[board_index].check_winner();
 	
 	//Do win condition stuff
-	if (item != 'E') {
+	if (item != "E") {
 		small_win(orig, player);
 	}
 
 	//Toggle tiles when there isn't a winner.
-	if (big_board.check_winner() == 'E') {
+	if (big_board.check_winner() == "E") {
 		lock_unlock(dest);
 	}
 
@@ -369,6 +372,9 @@ function move_played(id) {
 			turn = 0;
 		} else {
 			turn = 1;
+			if (single_player && big_board.check_winner() == "E") {
+				computer_move(true, dest);
+			}
 		}
 	}
 }
@@ -418,31 +424,31 @@ function undo() {
 		//Identify the small tile we are in and mark it.
 		switch(dest) {
 			case 'BUL':
-					board[board_index].UL = 'E';
+					board[board_index].UL = "E";
 				break;
 			case 'BUM':
-					board[board_index].UM = 'E';
+					board[board_index].UM = "E";
 				break;
 			case 'BUR':
-					board[board_index].UR = 'E';
+					board[board_index].UR = "E";
 				break;
 			case 'BML':
-					board[board_index].ML = 'E';
+					board[board_index].ML = "E";
 				break;
 			case 'BMM':
-					board[board_index].MM = 'E';
+					board[board_index].MM = "E";
 				break;
 			case 'BMR':
-					board[board_index].MR = 'E';
+					board[board_index].MR = "E";
 				break;
 			case 'BLL':
-					board[board_index].BL = 'E';
+					board[board_index].BL = "E";
 				break;
 			case 'BLM':
-					board[board_index].BM = 'E';
+					board[board_index].BM = "E";
 				break;
 			case 'BLR':
-					board[board_index].BR = 'E';
+					board[board_index].BR = "E";
 				break;
 		}
 		//Reset text in button
@@ -503,18 +509,33 @@ function reset() {
 		} else {
 			small_board.classList.add("Wonton");
 		}
+		small_board.innerText = "E";
 	}
 	for (var i = board.length - 1; i >= 0; i--) {
-		board[i].UR = 'E';
-		board[i].UM = 'E';
-		board[i].UL = 'E';
-		board[i].ML = 'E';
-		board[i].MM = 'E';
-		board[i].MR = 'E';
-		board[i].BL = 'E';
-		board[i].BM = 'E';
-		board[i].BR = 'E';
+		board[i].UR = "E";
+		board[i].UM = "E";
+		board[i].UL = "E";
+		board[i].ML = "E";
+		board[i].MM = "E";
+		board[i].MR = "E";
+		board[i].BL = "E";
+		board[i].BM = "E";
+		board[i].BR = "E";
+		board[i].check_winner();
 	}
+
+	//Reset Big Board
+	big_board.UR = "E";
+	big_board.UM = "E";
+	big_board.UL = "E";
+	big_board.ML = "E";
+	big_board.MM = "E";
+	big_board.MR = "E";
+	big_board.BL = "E";
+	big_board.BM = "E";
+	big_board.BR = "E";
+	big_board.check_winner();
+
 	//Empty the moves stack
 	while (!game_moves.isEmpty()) {
 		game_moves.pop();
@@ -523,4 +544,51 @@ function reset() {
 	turn = 0;
 	var stated_player = document.getElementById("player_turn");
 	stated_player.innerHTML = 'X';
+
+}
+
+function set_single(tf) {
+	single_player = tf;
+}
+
+function computer_move(dif, dest) {
+	if (dif) { //Easy mode
+		//Literally just pick a random valid square.
+		var test = document.getElementById(dest+"-Won");
+		if (test.innerText == "E") { //The destination isn't already filled.
+			
+			//Get buttons from target
+			var options = document.getElementById(dest).getElementsByTagName('button');
+			var list = [];
+			//Add valid buttons ot list
+			for (var i = options.length - 1; i >= 0; i--) {
+				if (!options[i].disabled) {
+					list.push(options[i]);
+				}
+			}
+			//Select random button
+			var choice = Math.floor((Math.random() * list.length));
+			setTimeout(function() {move_played(list[choice].id); }, 300);
+		} else { //Destination was filled.
+			//Holds the valid selections
+			var options = [];
+			//Only take valid sets of buttons.
+			for (var i = ids.length - 1; i >= 0; i--) {
+				var tile_won = document.getElementById(ids[i]+"-Won");
+				var tile_buttons = document.getElementById(ids[i]).getElementsByTagName('button');
+				if (tile_won.innerText == "E") {
+					for (var j = tile_buttons.length - 1; j >= 0; j--) {
+						if (tile_buttons[j].disabled == false) {
+							options.push(tile_buttons[j]);
+						}
+					}
+				}
+			}
+			//Choose random button to take.
+			var choice = Math.floor((Math.random() * options.length));
+			setTimeout(function() {move_played(options[choice].id); }, 300);
+		}
+	} else { //Hard Mode
+
+	}
 }

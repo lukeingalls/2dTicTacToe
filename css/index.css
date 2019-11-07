@@ -20,6 +20,7 @@ button:disabled {
 
 #full_board {
 	height: 95vh;
+	background-color: lightgrey;
 }
 
 .board_row {
@@ -91,6 +92,10 @@ button:disabled {
 	color:black;
 }
 
+#header2 div {
+	height:100%;
+}
+
 .Wonton, .Wonton-Middle {
 	display: none !important;
 }
@@ -107,4 +112,14 @@ button:disabled {
 
 #player2:disabled {
 	display:none;
+}
+
+#player3 {
+	width: 100%;
+}
+
+.pbtn {
+	width:100%;
+	height: inherit;
+	font-size: 2.5vh;
 }
