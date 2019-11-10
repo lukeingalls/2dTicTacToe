@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<link rel="shortcut icon" href="favicon.ico" />
+		<link rel="shortcut icon" href="rescources/favicon.ico" />
 		<!-- Bootstrap stuff -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -252,6 +252,42 @@
 					--><button onclick="move_played('BLR-BLR');" id="BLR-BLR">empty</button>
 					</div>
 				</span>				
+			</div>
+		</div>
+		<div class="container footer bg-primary">
+			<div class="row" style="height: 100%;">
+				<div class="col-4"></div>
+				<div class="col-4">
+					<span type="button" class="btn btn-danger pbtn" data-toggle="modal" data-target="#myModal">How To Play</span>
+					<!-- Modal -->
+					<div id="myModal" class="modal fade" role="dialog">
+					  <div class="modal-dialog">
+
+					    <!-- Modal content-->
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h4 class="modal-title">How To Play</h4>
+					        <p type="button" class="close" data-dismiss="modal">&times;</p>
+					      </div>
+					      <div class="modal-body">
+					        <p>The box <strong>you choose</strong> determines <strong>where your opponent must play</strong>. A move in the small board corresponds to the board your opponent will have to play in on the big board. The gif below shows this where the cursor hovers on a potential move and the green highlight shows where the opponent would have to go.</p>
+					        <img src="rescources/example.gif" style="width:100%;">
+					        <hr>
+					        <p><strong>Be careful!</strong> Sending your opponent to an occupied tile will let them choose where they can go! </p>
+					        <img src="rescources/example2.gif" style="width: 100%;">
+					        <hr>
+					        <p>And of course 3 in a row across the big board is a win!</p>
+					        <img src="rescources/example3.png" style="width: 100%">
+					      </div>
+					      <div class="modal-footer">
+					        <p type="button" class="btn btn-info" data-dismiss="modal">Enjoy!</p>
+					      </div>
+					    </div>
+
+					  </div>
+					</div>
+				</div>
+				<div class="col-4"></div>
 			</div>
 		</div>
 	</body>

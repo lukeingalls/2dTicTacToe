@@ -14,12 +14,16 @@ span {
 	display: block;
 }
 
+button {
+	background-color: #F0F0F0;
+}
+
 button:disabled {
 	background-color: lightgrey !important;
 }
 
 #full_board {
-	height: 95vh;
+	height: 90vh;
 	background-color: lightgrey;
 }
 
@@ -85,6 +89,10 @@ button:disabled {
 	width: 100%;
 }
 
+.menu div {
+	height: 100%
+}
+
 #header2 {
 	height: 100%;
 	display: none;
@@ -102,12 +110,12 @@ button:disabled {
 
 .Won {
 	text-align: center;
-	font-size: 25.8vh;
+	font-size: 24.85vh;
 }
 
 .Won-Middle {
 	text-align: center;
-	font-size: 24.8vh;
+	font-size: 23.85vh;
 }
 
 #player2:disabled {
@@ -118,8 +126,13 @@ button:disabled {
 	width: 100%;
 }
 
+.footer {
+	height: 5vh;
+}
+
+.footer .col-4 {
+	height: inherit;
+}
 .pbtn {
 	width:100%;
-	height: inherit;
-	font-size: 2.5vh;
 }
