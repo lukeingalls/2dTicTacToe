@@ -5,3 +5,5 @@ Opening index.html in a web browser will show the game and you can play it. Thin
 # Current non-working features: 
 - Inputting names for players does nothing.
 - Hard and easy mode on computer are the same. Only random moves get played for now.
+
+It's also not been optimized very well. It is a reasonable solution but there is plenty that can be improved.
