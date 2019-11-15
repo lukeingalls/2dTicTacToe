@@ -485,6 +485,7 @@ function undo() {
 				} else {
 					small_board.classList.add("Wonton");
 				}
+				small_board.innerText = "E";
 			}
 
 			//Unlock tiles.
