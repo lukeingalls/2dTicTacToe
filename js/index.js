@@ -395,6 +395,20 @@ function move_played(id) {
 }
 */
 
+function rollbackSmallBoard(id) {
+	small_board = document.getElementById(id);
+	small_board.style.display = "inline-block";
+
+	//Replace small board with the larger character of the winner.
+	small_board = document.getElementById(id +'-Won');
+	if (id.charAt(1) == 'M') {
+		small_board.classList.add("Wonton-Middle");
+	} else {
+		small_board.classList.add("Wonton");
+	}
+	small_board.innerText = "E";
+}
+
 function undo() {
 	var counter = 0;
 	do {
@@ -412,30 +426,39 @@ function undo() {
 			switch(orig) {
 				case 'BUL':
 					board_index = 0;
+					big_board.UL = 'E';
 					break;
 				case 'BUM':
 					board_index = 1;
+					big_board.UM = 'E';
 					break;
 				case 'BUR':
 					board_index = 2;
+					big_board.UR = 'E';
 					break;
 				case 'BML':
 					board_index = 3;
+					big_board.ML = 'E';
 					break;
 				case 'BMM':
 					board_index = 4;
+					big_board.MM = 'E';
 					break;
 				case 'BMR':
 					board_index = 5;
+					big_board.MR = 'E';
 					break;
 				case 'BLL':
 					board_index = 6;
+					big_board.BL = 'E';
 					break;
 				case 'BLM':
 					board_index = 7;
+					big_board.BM = 'E';
 					break;
 				case 'BLR':
 					board_index = 8;
+					big_board.BR = 'E';
 					break;
 			}
 			var win_state_previous = board[board_index].check_winner();
@@ -469,23 +492,14 @@ function undo() {
 						board[board_index].BR = "E";
 					break;
 			}
+			board[board_index].check_winner();
 			//Reset text in button
 			var tile = document.getElementById(move_to_undo);
 			tile.innerText = 'empty';
 			tile.style.color = 'transparent';
 			// Take away a board win.
 			if (win_state_previous != board[board_index].check_winner()) {
-				small_board = document.getElementById(orig);
-				small_board.style.display = "inline-block";
-
-				//Replace small board with the larger character of the winner.
-				small_board = document.getElementById(orig+'-Won');
-				if (orig.charAt(1) == 'M') {
-					small_board.classList.add("Wonton-Middle");
-				} else {
-					small_board.classList.add("Wonton");
-				}
-				small_board.innerText = "E";
+				rollbackSmallBoard(orig);
 			}
 
 			//Unlock tiles.
@@ -506,13 +520,17 @@ function undo() {
 			}
 		}
 
-		if (counter == 0) {
+		if (counter == 0 && turn == 1) {
 			counter += 1;
 		} else {
+			big_board.check_winner();
 			break;
 		}
 	} while (single_player);
+	console.log(board)
+	console.log(big_board)
 }
+
 
 function reset() {
 		//Reset all buttons
@@ -525,17 +543,7 @@ function reset() {
 
 		//Reset moves
 		for (var i = ids.length - 1; i >= 0; i--) {
-			small_board = document.getElementById(ids[i]);
-			small_board.style.display = "inline-block";
-
-			//Replace small board with the larger character of the winner.
-			small_board = document.getElementById(ids[i]+'-Won');
-			if (ids[i].charAt(1) == 'M') {
-				small_board.classList.add("Wonton-Middle");
-			} else {
-				small_board.classList.add("Wonton");
-			}
-			small_board.innerText = "E";
+			rollbackSmallBoard(ids[i]);
 		}
 		for (var i = board.length - 1; i >= 0; i--) {
 			board[i].UR = "E";
